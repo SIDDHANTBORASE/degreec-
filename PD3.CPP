@@ -65,8 +65,6 @@ class ActiveStudent : public Clubmember, public Volunter {
 public:
     void getdata() override {
         Clubmember::getdata(); 
-        cout << "Enter the Activity: ";
-        getline(cin, Activity); 
     }
 
     void displaydata() override {
