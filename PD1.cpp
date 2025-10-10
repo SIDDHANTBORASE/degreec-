@@ -1,76 +1,94 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-class University{
-private:
-	string Uname ="Pune University";
-	string location= "Pune";
+// Base class
+class University {
+protected:
+    string universityName;
+    string location;
 
 public:
-     virtual void Getdata(){
-	cout<<"Enter the University Name: " ;
-	getline(cin,Uname);
-	cout<<"Enter the Location of University: " ;
-	getline(cin, location);
-    cout<<"\n"<<endl;
-}
-    virtual void displayInfo(){  	
-       	 	cout << "Name of the University: " << Uname << endl;
-		cout<< "Location of University: " <<location<<endl;   
- }
+    virtual void getData() {
+        cout << "Enter University Name: ";
+        getline(cin, universityName);
+        cout << "Enter Location of University: ";
+        getline(cin, location);
+    }
+
+    virtual void displayInfo() const {
+        cout << "\n--- University Details ---" << endl;
+        cout << "University Name: " << universityName << endl;
+        cout << "Location: " << location << endl;
+    }
 };
 
+// Derived class 1
 class College : public University {
-private:
-    string Collagename = "Matoshri College Of Engineering: " ;
-    string Principle_Name ;
-	
+protected:
+    string collegeName;
+    string principalName;
 
 public:
+    void getData() override {
+        cout << "\nEnter College Name: ";
+        getline(cin, collegeName);
+        cout << "Enter Principal Name: ";
+        getline(cin, principalName);
+    }
 
-     void Getdata() override{
-    cout<<"\n"<<endl;
-    cout<<"College Name :"<<Collagename<<endl;
-	cout<<"Enter Name of Principle: ";
-	getline(cin,Principle_Name);
-}
-    void displayInfo() override {
-         	cout << "Name of the College: " << Collagename << endl;
-		cout<<"Principle Name: " <<Principle_Name <<endl;    
-}
+    void displayInfo() const override {
+        cout << "\n--- College Details ---" << endl;
+        cout << "College Name: " << collegeName << endl;
+        cout << "Principal Name: " << principalName << endl;
+    }
 };
 
+// Derived class 2
 class Department : public College {
-private: 
-	string DepartmentName;
-	int departmentstaffcount;
-	int departmentclassrooms;
-public:
+private:
+    string departmentName;
+    int staffCount;
+    int classroomCount;
 
-	void Getdata() override{
-	University::Getdata();
-	College::Getdata();
-	cout<<"Enter the Department Name " ;
-	getline(cin,DepartmentName);
-	cout<<"Enter the Staff Count of Department:" ;
-	cin>>departmentstaffcount;
-	cout<<"Enter the Classrooms Present in The Department: ";
-	cin>>departmentclassrooms;
-}
-	void displayInfo() override {
-	cout << endl<<endl;
-    cout << "Name of the Department: " << DepartmentName<< endl;
-	cout<<"Staff Count of Department:" <<departmentstaffcount <<endl ;
-	cout<<"Enter the Classrooms Present in The Department: " <<departmentclassrooms<<endl;
-	College::displayInfo();	
-	University::displayInfo();
-		
-    	}	
+public:
+    void getData() override {
+        cout << "=== Enter University Details ===" << endl;
+        University::getData();
+
+        cout << "\n=== Enter College Details ===" << endl;
+        College::getData();
+
+        cout << "\n=== Enter Department Details ===" << endl;
+        cout << "Enter Department Name: ";
+        getline(cin, departmentName);
+
+        cout << "Enter Staff Count: ";
+        cin >> staffCount;
+
+        cout << "Enter Number of Classrooms: ";
+        cin >> classroomCount;
+        cin.ignore(); // clear input buffer
+    }
+
+    void displayInfo() const override {
+        cout << "\n=========== FULL DEPARTMENT INFO ===========" << endl;
+
+        cout << "\n--- Department Details ---" << endl;
+        cout << "Department Name: " << departmentName << endl;
+        cout << "Staff Count: " << staffCount << endl;
+        cout << "Classroom Count: " << classroomCount << endl;
+
+        College::displayInfo();
+        University::displayInfo();
+    }
 };
 
+// Main Function
 int main() {
-    Department c;
-    c.Getdata();
-    c.displayInfo();
+    Department dept;
+    dept.getData();
+    dept.displayInfo();
+
     return 0;
 }
