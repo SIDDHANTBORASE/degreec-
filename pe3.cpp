@@ -1,4 +1,4 @@
-#include <iostream>
+  #include <iostream>
 #include <limits>
 using namespace std;
 
@@ -34,6 +34,7 @@ int main() {
 
         switch (choice) {
             case 1:
+            try{
                 cout << "Enter the Withdrawal Amount: ";
                 while (!(cin >> withdrawal) || withdrawal <= 0) {
                     cout << "Enter a valid positive amount to withdraw: ";
@@ -41,29 +42,38 @@ int main() {
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
                 if (withdrawal > amount) {
-                    cout << "Insufficient balance! You only have " << amount << " available.\n";
+                   throw(withdrawal);
                 } else {
                     amount -= withdrawal;
                     cout << "Amount Withdrawn: " << withdrawal << endl;
                 }
-                break;
+            }
+            catch(const float amount){
+                cout<<"Enter the Sufficient Ammount to Withdraw "<<endl;
+                cout<<"Error Account Balance is Low."<<endl;
+            }
+            break;
+            
 
             case 2:
+                try{
                 cout << "Enter the Deposit Amount: ";
                 while (!(cin >> deposit) || deposit <= 0) {
-                    cout << "Enter a valid positive amount to deposit: ";
+                   throw(deposit);
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
                 amount += deposit;
                 cout << "Amount Deposited: " << deposit << endl;
+            }
+            catch(const float amount){
+                cout<<"Enter the Positive Amount to Deposite ..";
+            }
                 break;
-
             case 3:
                 cout << "\nAccount Details:\n";
                 cout << "Name: " << name << "\nAccount Balance: " << amount << endl;
                 break;
-
             case 4:
                 cout << "Exiting... Thank you!\n";
                 break;
